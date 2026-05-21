@@ -32,7 +32,25 @@ ament_target_dependencies(
   shape_msgs
 )
 
-install(TARGETS move_group_interface_tutorial
+add_executable(cartesian_tutorial src/cartesian_tutorial.cpp)
+
+target_include_directories(cartesian_tutorial PUBLIC
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+  $<INSTALL_INTERFACE:include>)
+
+target_compile_features(cartesian_tutorial PUBLIC c_std_99 cxx_std_17)
+
+ament_target_dependencies(
+  cartesian_tutorial
+  rclcpp
+  moveit_ros_planning_interface
+  moveit_msgs
+  moveit_visual_tools
+  geometry_msgs
+  shape_msgs
+)
+
+install(TARGETS move_group_interface_tutorial cartesian_tutorial
   DESTINATION lib/${PROJECT_NAME})
 
 install(DIRECTORY launch
